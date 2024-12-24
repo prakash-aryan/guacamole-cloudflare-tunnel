@@ -4,7 +4,14 @@ A comprehensive solution for secure remote desktop and terminal access using Apa
 
 This project provides a complete setup for accessing Ubuntu desktop and terminal through a web browser, using:
 - Guacamole for VNC-based desktop access (gui.yourdomain.com)
+
+![gui](https://github.com/user-attachments/assets/a49ae36d-4b17-48f7-9599-fa41d1fa5754)
+
+  
 - TTYD for web-based terminal (dev.yourdomain.com)
+
+![ttyd](https://github.com/user-attachments/assets/89aaf250-9e0f-4e4b-bd1f-41b600ea8939)
+
 
 Both secured and tunneled through Cloudflare, requiring no open ports.
 
