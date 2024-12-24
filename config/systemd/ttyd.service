@@ -1,0 +1,26 @@
+# config/systemd/ttyd.service
+[Unit]
+Description=ttyd service with terminal access
+After=network.target
+Wants=network.target
+
+[Service]
+Type=simple
+User=<YOUR_USERNAME>
+Group=users
+RuntimeDirectory=ttyd
+RuntimeDirectoryMode=0755
+# Start ttyd
+ExecStart=/usr/bin/ttyd \
+    -p 3001 \
+    -c <YOUR_USERNAME>:<YOUR_PASSWORD> \
+    -m 30 \
+    bash
+# Proper cleanup
+ExecStopPost=/bin/rm -f /run/ttyd.pid
+# Restart settings
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

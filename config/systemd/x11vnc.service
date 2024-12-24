@@ -1,0 +1,27 @@
+[Unit]
+Description=x11vnc service
+After=xvfb.service
+Wants=xvfb.service
+
+[Service]
+Type=simple
+User=<YOUR_USERNAME>
+Group=users
+Environment=DISPLAY=:2
+Environment=HOME=<YOUR_USERNAME>
+Environment=XAUTHORITY=<YOUR_USERNAME>/.Xauthority
+ExecStart=/usr/bin/x11vnc \
+    -display :2 \
+    -auth <YOUR_USERNAME>/.Xauthority \
+    -forever \
+    -shared \
+    -rfbauth <YOUR_USERNAME>/.vnc/passwd \
+    -rfbport 5901 \
+    -noxdamage \
+    -repeat \
+    -o /var/log/x11vnc.log
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

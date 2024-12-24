@@ -1,0 +1,15 @@
+Unit]
+Description=X Virtual Frame Buffer Service
+After=network.target
+
+[Service]
+Type=simple
+User=<YOUR_USERNAME>
+Group=users
+Environment=DISPLAY=:2
+ExecStart=/usr/bin/Xvfb :2 -screen 0 1920x1080x24
+ExecStartPost=<YOUR_USERNAME>/x-startup.sh
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

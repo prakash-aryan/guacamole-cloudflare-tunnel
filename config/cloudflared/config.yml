@@ -1,0 +1,37 @@
+# config/cloudflared/config.yml
+tunnel: <YOUR_TUNNEL_ID>
+credentials-file: <YOUR_USERNAME>/.cloudflared/<YOUR_TUNNEL_ID>.json
+
+# Tunnel settings
+ingress:
+  - hostname: <YOUR_GUACAMOLE_DOMAIN>
+    service: http://127.0.0.1:8080
+    originRequest:
+      noTLSVerify: true
+      connectTimeout: 30s
+      timeout: 60s
+    headers:
+      - name: X-Real-IP
+        value: ${CF-CONNECTING-IP}
+      - name: X-Forwarded-Proto
+        value: https
+      - name: X-Forwarded-Host
+        value: <YOUR_GUACAMOLE_DOMAIN>
+
+  - hostname: <YOUR_DEV_DOMAIN>
+    service: http://localhost:3001
+    originRequest:
+      noTLSVerify: true
+      connectTimeout: 30s
+      timeout: 60s
+    headers:
+      - name: X-Real-IP
+        value: ${CF-CONNECTING-IP}
+
+  # Catch-all rule
+  - service: http_status:404
+
+# Connection settings
+connectTimeout: 30s
+timeout: 60s
+compression: true

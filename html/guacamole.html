@@ -1,0 +1,63 @@
+<!doctype html>
+<html ng-app="index" ng-controller="indexController">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,target-densitydpi=medium-dpi">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="build" content="20230726055936">
+    <link rel="icon" type="image/png" href="images/logo-64.png">
+    <link rel="icon" type="image/png" sizes="144x144" href="images/logo-144.png">
+    <link rel="apple-touch-icon" type="image/png" href="images/logo-144.png">
+    <link rel="stylesheet" href="1.guacamole.1b135b054a2260e7b072.css">
+    <link rel="stylesheet" href="app.css?b=20230726055936">
+    <title ng-bind="page.title | translate"></title>
+</head>
+<body ng-cloak translate-cloak ng-class="page.bodyClassName" ng-switch="applicationState">
+    <div class="logged-out-modal" ng-switch-when="loggedOut">
+        <guac-modal>
+            <div class="notification">
+                <p translate="APP.INFO_LOGGED_OUT"></p>
+                <p><button translate="APP.ACTION_LOGIN_AGAIN" ng-disabled="reAuthenticating" ng-click="reAuthenticate()"></button></p>
+            </div>
+        </guac-modal>
+    </div>
+    <div class="fatal-page-error-modal" ng-switch-when="fatalError">
+        <guac-modal>
+            <div class="fatal-page-error">
+                <h1 translate="APP.DIALOG_HEADER_ERROR"></h1>
+                <p translate="APP.ERROR_PAGE_UNAVAILABLE"></p>
+            </div>
+        </guac-modal>
+    </div>
+    <div class="automatic-login-rejected-modal" ng-switch-when="automaticLoginRejected">
+        <guac-modal>
+            <div class="notification">
+                <p translate="{{ fatalError.translatableMessage.key }}" translate-values="{{ fatalError.translatableMessage.variables }}"></p>
+                <p><button translate="APP.ACTION_LOGIN_AGAIN" ng-disabled="reAuthenticating" ng-click="reAuthenticate()"></button></p>
+            </div>
+        </guac-modal>
+    </div>
+    <guac-login ng-switch-when="awaitingCredentials" help-text="loginHelpText" form="expectedCredentials" values="acceptedCredentials"></guac-login>
+    <div ng-switch-when="ready">
+        <guac-modal class="global-status-modal" ng-if="guacNotification.getStatus()">
+            <guac-notification notification="guacNotification.getStatus()"></guac-notification>
+        </guac-modal>
+        <div id="content" ng-view></div>
+        <div id="other-connections">
+            <guac-client-panel client-groups="getManagedClientGroups()"></guac-client-panel>
+        </div>
+    </div>
+    <script src="Blob.js"></script>
+    <script src="datalist-polyfill.min.js"></script>
+    <script src="guacamole-common-js/all.min.js"></script>
+    <script src="jquery.min.js"></script>
+    <script src="lodash.min.js"></script>
+    <script src="angular.min.js"></script>
+    <script src="1.guacamole.7935cf403412cd79c600.js"></script>
+    <script src="guacamole.c99aa30d916181eec243.js"></script>
+    <script src="templates.js"></script>
+    <script src="app.js?b=20230726055936"></script>
+</body>
+</html>
